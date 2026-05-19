@@ -1,0 +1,37 @@
+
+###################
+# nodejs 环境配置 #
+###################
+# 只对当前用户放宽
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned -Force
+# 更宽松一点（如果你信任当前环境）
+Set-ExecutionPolicy -Scope CurrentUser Bypass -Force
+# 检查当前策略
+Get-ExecutionPolicy -List
+
+###################
+# Wally 工具安装 #
+###################
+# 安装工具链管理器 Aftman。这是最推荐的现代方法。Aftman 可以统一管理 wally, rojo 等多种工具，避免手动配置环境的麻烦。
+# 进入到对应的文件夹下 执行命令 （仅限windows）
+.\aftman.exe add UpliftGames/wally
+.\aftman.exe add rojo-rbx/rojo
+# 运行 aftman install，Aftman 就会把这两个工具安装到你的项目目录下，实现环境隔离，不影响系统其他部分
+
+########################
+# 初始化 roblox-ts 项目 #
+########################
+npm init roblox-ts
+# 在设置过程中，通常会让你选择一个模板，对于新项目，选择 game 模板即可。这个命令会创建 tsconfig.json（TS配置）、default.project.json（Rojo配置）、package.json（npm包管理）和 src（源码）文件夹。
+
+####################
+# 初始化 Wally 组件 #
+####################
+# 注意要将wally添加到系统的环境变量中
+# 在项目根目录下，运行以下命令创建 wally.toml 配置文件
+wally init
+# 然后，在生成的 wally.toml 文件中的 [dependencies] 部分，添加 jecs 依赖
+[dependencies]
+jecs = "ukendio/jecs@0.6.0"  # 建议访问其 [Wally页面](https://wally.run/package/ukendio/jecs) 确认最新版本号
+# 添加完运行命令
+wally install
