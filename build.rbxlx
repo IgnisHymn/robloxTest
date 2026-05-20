@@ -3146,27 +3146,27 @@ S2hLZEthS12AYg==]]></BinaryString>
 		<Item class="Camera" referent="RBX1AA5E2C83FA04DAB8ADC2D47079B3591">
 			<Properties>
 				<CoordinateFrame name="CFrame">
-					<X>-89.8729019</X>
-					<Y>15.8200588</Y>
-					<Z>134.127396</Z>
-					<R00>0.813114285</R00>
-					<R01>0.0940793082</R01>
-					<R02>-0.574451268</R02>
-					<R10>-7.4505806e-09</R10>
-					<R11>0.986853123</R11>
-					<R12>0.16161938</R12>
-					<R20>0.582104087</R20>
-					<R21>-0.131415024</R21>
-					<R22>0.802424371</R22>
+					<X>-51.6161766</X>
+					<Y>17.7499542</Y>
+					<Z>42.7781677</Z>
+					<R00>-0.36168924</R00>
+					<R01>0.374707162</R01>
+					<R02>-0.853683472</R02>
+					<R10>-0</R10>
+					<R11>0.915675998</R11>
+					<R12>0.401917458</R12>
+					<R20>0.932298779</R20>
+					<R21>0.145369217</R21>
+					<R22>-0.331190109</R22>
 				</CoordinateFrame>
 				<Ref name="CameraSubject">null</Ref>
 				<token name="CameraType">0</token>
 				<float name="FieldOfView">70</float>
 				<token name="FieldOfViewMode">0</token>
 				<CoordinateFrame name="Focus">
-					<X>-88.7240143</X>
-					<Y>15.4968243</Y>
-					<Z>132.522568</Z>
+					<X>-49.9088097</X>
+					<Y>16.9461193</Y>
+					<Z>43.4405479</Z>
 					<R00>1</R00>
 					<R01>0</R01>
 					<R02>0</R02>
@@ -4125,6 +4125,20 @@ print(makeHello("main.client.ts"))
 			<int64 name="SourceAssetId">-1</int64>
 			<BinaryString name="Tags"></BinaryString>
 			<UniqueId name="UniqueId">696c8bd958159c450a1e090d0000037e</UniqueId>
+		</Properties>
+	</Item>
+	<Item class="ServiceVisibilityService" referent="RBXB3E3101361A347F1869BA390984EFFCF">
+		<Properties>
+			<BinaryString name="HiddenServices">AAAAAA==</BinaryString>
+			<BinaryString name="VisibleServices">AAAAAA==</BinaryString>
+			<BinaryString name="AttributesSerialize"></BinaryString>
+			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+			<bool name="DefinesCapabilities">false</bool>
+			<UniqueId name="HistoryId">00000000000000000000000000000000</UniqueId>
+			<string name="Name">ServiceVisibilityService</string>
+			<int64 name="SourceAssetId">-1</int64>
+			<BinaryString name="Tags"></BinaryString>
+			<UniqueId name="UniqueId">696c8bd958159c450a1e090d0000038c</UniqueId>
 		</Properties>
 	</Item>
 	<Item class="LuaWebService" referent="RBXA8C879C7D62644A388AB35D69739F986">
@@ -10832,9 +10846,20 @@ return {
 			<Item class="Script" referent="16">
 				<Properties>
 					<ProtectedString name="Source"><![CDATA[-- Compiled with roblox-ts v3.0.0
-local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
-local makeHello = TS.import(script, game:GetService("ReplicatedStorage"), "TS", "module").makeHello
-print(makeHello("main.server.ts"))
+-- 创建 ECS World 实例（使用工厂函数 world()，而非 new World()）
+-- const ecsWorld = world(true);
+-- const Position = ecsWorld.component<Vector3>();
+-- const Velocity = ecsWorld.component<Vector3>();
+-- const player = ecsWorld.entity();
+-- ecsWorld.set(player, Position, new Vector3(0, 0, 0));
+-- ecsWorld.set(player, Velocity, new Vector3(1, 0, 0));
+-- RunService.Heartbeat.Connect((dt: number) => {
+--     for (const [id, pos, vel] of ecsWorld.query(Position, Velocity)) {
+--         const newPos = pos.add(vel.mul(dt));
+--         ecsWorld.set(id, Position, newPos);
+--         print(`Player moved to: ${newPos.X}, ${newPos.Y}, ${newPos.Z}`);
+--     }
+-- });
 ]]></ProtectedString>
 					<bool name="Disabled">false</bool>
 					<Content name="LinkedSource"><null></null></Content>
@@ -10862,20 +10887,6 @@ print(makeHello("main.server.ts"))
 			<int64 name="SourceAssetId">-1</int64>
 			<BinaryString name="Tags"></BinaryString>
 			<UniqueId name="UniqueId">696c8bd958159c450a1e090d00000389</UniqueId>
-		</Properties>
-	</Item>
-	<Item class="ServiceVisibilityService" referent="RBXB3E3101361A347F1869BA390984EFFCF">
-		<Properties>
-			<BinaryString name="HiddenServices">AAAAAA==</BinaryString>
-			<BinaryString name="VisibleServices">AAAAAA==</BinaryString>
-			<BinaryString name="AttributesSerialize"></BinaryString>
-			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-			<bool name="DefinesCapabilities">false</bool>
-			<UniqueId name="HistoryId">00000000000000000000000000000000</UniqueId>
-			<string name="Name">ServiceVisibilityService</string>
-			<int64 name="SourceAssetId">-1</int64>
-			<BinaryString name="Tags"></BinaryString>
-			<UniqueId name="UniqueId">696c8bd958159c450a1e090d0000038c</UniqueId>
 		</Properties>
 	</Item>
 	<Item class="HttpService" referent="0">
