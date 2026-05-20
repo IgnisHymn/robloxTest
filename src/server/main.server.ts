@@ -1,3 +1,19 @@
-import { makeHello } from "shared/module";
+import { world } from "@rbxts/jecs";
+import { RunService } from "@rbxts/services";
 
-print(makeHello("main.server.ts"));
+// 创建 ECS World 实例（使用工厂函数 world()，而非 new World()）
+const ecsWorld = world();
+const Position = ecsWorld.component<Vector3>();
+const Velocity = ecsWorld.component<Vector3>();
+
+const player = ecsWorld.entity();
+ecsWorld.set(player, Position, new Vector3(0, 0, 0));
+ecsWorld.set(player, Velocity, new Vector3(1, 0, 0));
+
+RunService.Heartbeat.Connect((dt: number) => {
+    for (const [id, pos, vel] of ecsWorld.query(Position, Velocity)) {
+        const newPos = pos.add(vel.mul(dt));
+        ecsWorld.set(id, Position, newPos);
+        print(`Player moved to: ${newPos.X}, ${newPos.Y}, ${newPos.Z}`);
+    }
+});
