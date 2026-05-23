@@ -1,19 +1,18 @@
 import { world } from "@rbxts/jecs";
-import { RunService } from "@rbxts/services";
+import { createTransformComponents } from "shared/components/transform";
+import { createPhysicsComponents } from "shared/components/physics";
+import { createMovementSystem } from "server/systems/movement";
+import { createSpawnerSystem } from "server/systems/spawner";
 
-// 创建 ECS World 实例（使用工厂函数 world()，而非 new World()）
-// const ecsWorld = world(true);
-// const Position = ecsWorld.component<Vector3>();
-// const Velocity = ecsWorld.component<Vector3>();
+// 1. 创建 ECS 世界
+const ecsWorld = world();
 
-// const player = ecsWorld.entity();
-// ecsWorld.set(player, Position, new Vector3(0, 0, 0));
-// ecsWorld.set(player, Velocity, new Vector3(1, 0, 0));
+// 2. 注册组件
+const transform = createTransformComponents(ecsWorld);
+const physics = createPhysicsComponents(ecsWorld);
 
-// RunService.Heartbeat.Connect((dt: number) => {
-//     for (const [id, pos, vel] of ecsWorld.query(Position, Velocity)) {
-//         const newPos = pos.add(vel.mul(dt));
-//         ecsWorld.set(id, Position, newPos);
-//         print(`Player moved to: ${newPos.X}, ${newPos.Y}, ${newPos.Z}`);
-//     }
-// });
+// 3. 注册系统
+createMovementSystem(ecsWorld, { ...transform, ...physics });
+createSpawnerSystem(ecsWorld, { ...transform, ...physics });
+
+print("ECS framework initialized!");

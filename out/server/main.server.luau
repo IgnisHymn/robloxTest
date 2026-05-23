@@ -1,15 +1,26 @@
 -- Compiled with roblox-ts v3.0.0
--- 创建 ECS World 实例（使用工厂函数 world()，而非 new World()）
--- const ecsWorld = world(true);
--- const Position = ecsWorld.component<Vector3>();
--- const Velocity = ecsWorld.component<Vector3>();
--- const player = ecsWorld.entity();
--- ecsWorld.set(player, Position, new Vector3(0, 0, 0));
--- ecsWorld.set(player, Velocity, new Vector3(1, 0, 0));
--- RunService.Heartbeat.Connect((dt: number) => {
---     for (const [id, pos, vel] of ecsWorld.query(Position, Velocity)) {
---         const newPos = pos.add(vel.mul(dt));
---         ecsWorld.set(id, Position, newPos);
---         print(`Player moved to: ${newPos.X}, ${newPos.Y}, ${newPos.Z}`);
---     }
--- });
+local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
+local world = TS.import(script, game:GetService("ReplicatedStorage"), "rbxts_include", "node_modules", "@rbxts", "jecs", "src", "jecs").world
+local createTransformComponents = TS.import(script, game:GetService("ReplicatedStorage"), "TS", "components", "transform").createTransformComponents
+local createPhysicsComponents = TS.import(script, game:GetService("ReplicatedStorage"), "TS", "components", "physics").createPhysicsComponents
+local createMovementSystem = TS.import(script, game:GetService("ServerScriptService"), "TS", "systems", "movement").createMovementSystem
+local createSpawnerSystem = TS.import(script, game:GetService("ServerScriptService"), "TS", "systems", "spawner").createSpawnerSystem
+-- 1. 创建 ECS 世界
+local ecsWorld = world()
+-- 2. 注册组件
+local transform = createTransformComponents(ecsWorld)
+local physics = createPhysicsComponents(ecsWorld)
+-- 3. 注册系统
+local _object = table.clone(transform)
+setmetatable(_object, nil)
+for _k, _v in physics do
+	_object[_k] = _v
+end
+createMovementSystem(ecsWorld, _object)
+local _object_1 = table.clone(transform)
+setmetatable(_object_1, nil)
+for _k, _v in physics do
+	_object_1[_k] = _v
+end
+createSpawnerSystem(ecsWorld, _object_1)
+print("ECS framework initialized!")
